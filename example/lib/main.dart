@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                     padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                     child: new RaisedButton(
                       child: new Text(
-                          'Repeat notification every day at approximately 1:30:00 pm Starting now'),
+                          'Repeat notification every day at approximately 3:30:00 pm Starting now'),
                       onPressed: () async {
                         await _showDailyAtTimeStartingNow();
                       },
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                     padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                     child: new RaisedButton(
                       child: new Text(
-                          'Repeat notification every day at approximately 1:31:00 pm Starting tomorrow'),
+                          'Repeat notification every day at approximately 3:31:00 pm Starting tomorrow'),
                       onPressed: () async {
                         await _showDailyAtTimeStartingTomorrow();
                       },
@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                     padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                     child: new RaisedButton(
                       child: new Text(
-                          'Repeat notification every day at approximately 1:32:00 pm Starting yesterday'),
+                          'Repeat notification every day at approximately 3:32:00 pm Starting yesterday'),
                       onPressed: () async {
                         await _showDailyAtTimeStartingYesterday();
                       },
@@ -587,7 +587,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future _showDailyAtTimeStartingNow() async {
-    var time = new Time(13, 30, 0);
+    var time = new Time(15, 30, 0);
     var calledAt = DateTime.now().millisecondsSinceEpoch;
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
@@ -606,7 +606,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future _showDailyAtTimeStartingTomorrow() async {
-    var time = new Time(13, 31, 0);
+    var time = new Time(15, 31, 0);
     var calledAt = DateTime.now().add(Duration(days: 1)).millisecondsSinceEpoch;
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
@@ -625,7 +625,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future _showDailyAtTimeStartingYesterday() async {
-    var time = new Time(13, 32, 0);
+    var time = new Time(15, 32, 0);
     var calledAt = DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
