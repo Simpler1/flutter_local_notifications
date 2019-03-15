@@ -166,7 +166,7 @@ class FlutterLocalNotificationsPlugin {
   }
 
   /// Shows a notification on a daily interval at the specified time
-  Future showDailyAtTime(int id, String title, String body,
+  Future showDailyAtTime(int id, String title, String body, int calledAt,
       Time notificationTime, NotificationDetails notificationDetails,
       {String payload}) async {
     _validateId(id);
@@ -176,7 +176,7 @@ class FlutterLocalNotificationsPlugin {
       'id': id,
       'title': title,
       'body': body,
-      'calledAt': new DateTime.now().millisecondsSinceEpoch,
+      'calledAt': calledAt,
       'repeatInterval': RepeatInterval.Daily.index,
       'repeatTime': notificationTime.toMap(),
       'platformSpecifics': serializedPlatformSpecifics,

@@ -116,9 +116,29 @@ class _HomePageState extends State<HomePage> {
                     padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                     child: new RaisedButton(
                       child: new Text(
-                          'Repeat notification every day at approximately 10:00:00 am'),
+                          'Repeat notification every day at approximately 10:00:00 am Starting now'),
                       onPressed: () async {
-                        await _showDailyAtTime();
+                        await _showDailyAtTimeStartingNow();
+                      },
+                    ),
+                  ),
+                  new Padding(
+                    padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                    child: new RaisedButton(
+                      child: new Text(
+                          'Repeat notification every day at approximately 10:01:00 am Starting tomorrow'),
+                      onPressed: () async {
+                        await _showDailyAtTimeStartingTomorrow();
+                      },
+                    ),
+                  ),
+                  new Padding(
+                    padding: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+                    child: new RaisedButton(
+                      child: new Text(
+                          'Repeat notification every day at approximately 10:02:00 am Starting yesterday'),
+                      onPressed: () async {
+                        await _showDailyAtTimeStartingYesterday();
                       },
                     ),
                   ),
@@ -566,8 +586,9 @@ class _HomePageState extends State<HomePage> {
         'repeating body', RepeatInterval.EveryMinute, platformChannelSpecifics);
   }
 
-  Future _showDailyAtTime() async {
+  Future _showDailyAtTimeStartingNow() async {
     var time = new Time(10, 0, 0);
+    var calledAt = DateTime.now().millisecondsSinceEpoch;
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
         'repeatDailyAtTime channel name',
@@ -576,9 +597,48 @@ class _HomePageState extends State<HomePage> {
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
-        0,
-        'show daily title',
+        1000,
+        'show daily title starting now',
         'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
+        calledAt,
+        time,
+        platformChannelSpecifics);
+  }
+
+  Future _showDailyAtTimeStartingTomorrow() async {
+    var time = new Time(10, 1, 0);
+    var calledAt = DateTime.now().add(Duration(days: 1)).millisecondsSinceEpoch;
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.showDailyAtTime(
+        1001,
+        'show daily title starting tomorrow',
+        'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
+        calledAt,
+        time,
+        platformChannelSpecifics);
+  }
+
+  Future _showDailyAtTimeStartingYesterday() async {
+    var time = new Time(10, 2, 0);
+    var calledAt = DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.showDailyAtTime(
+        1002,
+        'show daily title starting yesterday',
+        'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
+        calledAt,
         time,
         platformChannelSpecifics);
   }
